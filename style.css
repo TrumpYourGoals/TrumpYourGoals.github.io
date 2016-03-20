@@ -1,0 +1,216 @@
+#homeFullScreen {
+  background-image: url('https://flight.do/img/iStock/set_your_stakes/HiRes.jpg');
+}
+
+.goal-text {
+  color: white;
+  font-size:145%;
+  line-height: 1.1;
+  /*margin: .67em 0;*/
+  text-align:center;
+  /*font-family:"Helvetica Neue,Helvetica,Arial,sans-serif";*/
+  font-family:"Helvetica Neue, Helvetica";
+  font-weight:bolder;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  margin-bottom:5px;
+
+}
+
+.inner-container {
+  /*position:absolute;*/
+  /*top:0;*/
+  /*left:50%;*/
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  /*margin-top: auto;*/
+  /*margin-bottom: auto;*/
+}
+
+.goal-container {
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  /*!*margin-top: auto;*!*/
+  /*top:50%;*/
+  /*!*margin-bottom: auto;*!*/
+  /*overflow:scroll;*/
+  width:60%;
+  /*height:80%;*/
+  position:absolute; /*it can be fixed too*/
+  left:0; right:0;
+  top:0; bottom:0;
+  margin:auto;
+  text-align:center;
+
+  /*this to solve "the content will not be cut when the window is smaller than the content": */
+  max-width:100%;
+  max-height:100%;
+  /*overflow:auto;*/
+  overflow-y: scroll;
+
+  background-color: rgba(0,0,0,.5);
+  /*padding:20px;*/
+  padding-left:30px;
+  padding-right:30px;
+  border:1px solid white;
+  border-radius:5px;
+}
+
+.btn-selected-republican {
+  border:3px solid red !important;
+}
+.btn-selected-democrat {
+  border:3px solid blue !important;
+}
+/*.item img {*/
+  /*max-width: 100%;*/
+
+  /*-moz-transition: all 0.3s;*/
+  /*-webkit-transition: all 0.3s;*/
+  /*transition: all 0.3s;*/
+/*}*/
+/*.item:hover img {*/
+  /*-moz-transform: scale(1.1);*/
+  /*-webkit-transform: scale(1.1);*/
+  /*transform: scale(1.1);*/
+/*}*/
+
+/*.full button span {*/
+  /*background-color: limegreen;*/
+  /*border-radius: 32px;*/
+  /*color: black;*/
+/*}*/
+/*.partially button span {*/
+  /*background-color: orange;*/
+  /*border-radius: 32px;*/
+  /*color: black;*/
+/*}*/
+
+.btn-datepicker {
+  /*border: 0px;*/
+  border: 1px solid white;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.btn-recipient {
+  width:200px;
+  height:200px;
+  background-size:cover !important;
+  border:1px solid white;
+}
+.choose-different-recipient-type {
+  font-size: 80%;
+  color: white;
+}
+
+.form-control {
+  border: 2px solid white;
+}
+
+.btn-datepicker i {
+  margin-right: 0;
+}
+
+.dollar-sign {
+  background-color: #5BB75B;
+  color: white;
+}
+
+#exampleInputAmount {
+  color: #5BB75B;
+}
+
+.dollar-cents {
+  background-color: #5BB75B;
+  color: white;
+  border-left: 0px;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+}
+
+@media (min-width: 0px) and (max-width: 480px) {
+  .goal-container {
+    width: 90%;
+  }
+  .goal-text {
+    font-size: 100%;
+  }
+  .btn-recipient {
+    width:125px;
+    height:125px;
+  }
+  .choose-different-recipient-type {
+    font-size: 75%;
+  }
+}
+@media (min-width: 481px) and (max-width: 800px) {
+  .goal-container {
+    width: 80%;
+  }
+  .goal-text {
+    font-size: 125%;
+  }
+  .btn-recipient {
+    width:150px;
+    height:150px;
+  }
+}
+@media (min-width: 801px) and (max-width: 900px) {
+  .goal-container {
+    width: 70%;
+  }
+  /*.goal-text {*/
+    /*font-size: 100%;*/
+  /*}*/
+  /*.btn-recipient {*/
+    /*width:150px;*/
+    /*height:150px;*/
+  /*}*/
+}
+
+@media (min-width: 901px) and (max-width: 1000px) {
+  .goal-container {
+    width: 60%;
+  }
+  /*.goal-text {*/
+  /*font-size: 100%;*/
+  /*}*/
+  /*.btn-recipient {*/
+  /*width:150px;*/
+  /*height:150px;*/
+  /*}*/
+}
+/*@media (min-width: 1001px) and (max-width: 1100px) {*/
+  /*.goal-container {*/
+    /*width: 50%;*/
+  /*}*/
+  /*!*.goal-text {*!*/
+  /*!*font-size: 100%;*!*/
+  /*!*}*!*/
+  /*!*.btn-recipient {*!*/
+  /*!*width:150px;*!*/
+  /*!*height:150px;*!*/
+  /*!*}*!*/
+/*}*/
+@media (min-width: 1101px) {
+  .goal-container {
+    width: 50%;
+  }
+  /*.goal-text {*/
+  /*font-size: 100%;*/
+  /*}*/
+  /*.btn-recipient {*/
+  /*width:150px;*/
+  /*height:150px;*/
+  /*}*/
+}
+
+@media (min-height: 700px) {
+  .goal-inside-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
