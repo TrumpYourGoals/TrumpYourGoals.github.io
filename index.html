@@ -112,671 +112,106 @@
                                 <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
                                        is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true"
                                        close-text="Close" alt-input-formats="altInputFormats"/>
-                      <span class="input-group-btn">
+                                <span class="input-group-btn">
                         <button type="button" class="btn btn-default btn-datepicker" ng-click="open1()"><i
                                 class="glyphicon glyphicon-calendar"></i></button>
                       </span>
                             </p>
                         </div>
-                    <div>
-                        <div class="goal-text">And if I don't, I will pay:</div>
-                        <div class="form-group" style="width:200px;margin-left:auto;margin-right:auto;">
-                            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                            <div class="input-group">
-                                <div class="input-group-addon dollar-sign">$</div>
-                                <input type="number" class="form-control" id="exampleInputAmount" placeholder="Amount"
-                                       style="text-align:right;">
-                                <div class="input-group-addon dollar-cents">.00</div>
+                        <div>
+                            <div class="goal-text">And if I don't, I will pay:</div>
+                            <div class="form-group" style="width:200px;margin-left:auto;margin-right:auto;">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon dollar-sign">$</div>
+                                    <input type="number" class="form-control" id="exampleInputAmount"
+                                           placeholder="Amount"
+                                           style="text-align:right;">
+                                    <div class="input-group-addon dollar-cents">.00</div>
+                                </div>
                             </div>
+                            <div class="goal-text">to the following <u>Anti-Charity</u>:</div>
+                            <!--TODO: When clicking on AntiCharity, allow to select Charity, Friend, or Foe) -->
+                            <div class="row">
+                                <div class="col-xs-6 " style="padding-right:5px;">
+                                    <button ng-click="select('trump')" class="col-xs-6 btn btn-lg btn-recipient"
+                                            ng-class="{'btn-selected-republican' : recipient === 'trump'}"
+                                            style="float:right;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');"></button>
+                                </div>
+                                <div class="col-xs-6" style="padding-left:5px;">
+                                    <button ng-click="select('hillary')" class="col-xs-6 btn btn-lg btn-recipient"
+                                            ng-class="{'btn-selected-democrat' : recipient === 'hillary'}"
+                                            style="float:left; background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');"></button>
+                                </div>
+                            </div>
+                            <!-- <div class="row" style="padding-top:10px;">
+                              <div class="col-xs-6 " style="padding-right:5px;"><button ng-click="select('cruz')" class="col-xs-6 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'cruz'}" style="float:right; width:200px;height:200px;background-image:url('https://cdn.theatlantic.com/assets/media/img/mt/2015/07/AP_473596995531/lead_960.jpg?1437760759');background-size:cover;border:1px solid white;"></button></div>
+                              <div class="col-xs-6" style="padding-left:5px;"><button  ng-click="select('bernie')" class="col-xs-6 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'bernie'}" style="float:left; width:200px;height:200px;background-image:url('https://media.salon.com/2015/05/bernie_sanders8.jpg');background-size:cover;border:1px solid white;"></button></div>
+                            </div> -->
+                            <!-- <div class="row" style="width:50%;">
+                              <div class="col-xs-3" style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-3 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="width:50px;height:50px;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>
+                              <div class="col-xs-3" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-3 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="width:50px;height:50px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>
+                              <div class="col-xs-3" style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-3 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="width:50px;height:50x;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>
+                              <div class="col-xs-3" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-3 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="width:50px;height:50px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>
+                            </div> -->
                         </div>
-                        <div class="goal-text">to the following <u>Anti-Charity</u>:</div>
-                        <!--TODO: When clicking on AntiCharity, allow to select Charity, Friend, or Foe) -->
-                        <div class="row">
-                            <div class="col-xs-6 " style="padding-right:5px;">
-                                <button ng-click="select('trump')" class="col-xs-6 btn btn-lg btn-recipient"
-                                        ng-class="{'btn-selected-republican' : recipient === 'trump'}"
-                                        style="float:right;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');"></button>
-                            </div>
-                            <div class="col-xs-6" style="padding-left:5px;">
-                                <button ng-click="select('hillary')" class="col-xs-6 btn btn-lg btn-recipient"
-                                        ng-class="{'btn-selected-democrat' : recipient === 'hillary'}"
-                                        style="float:left; background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');"></button>
-                            </div>
-                        </div>
-                        <!-- <div class="row" style="padding-top:10px;">
-                          <div class="col-xs-6 " style="padding-right:5px;"><button ng-click="select('cruz')" class="col-xs-6 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'cruz'}" style="float:right; width:200px;height:200px;background-image:url('https://cdn.theatlantic.com/assets/media/img/mt/2015/07/AP_473596995531/lead_960.jpg?1437760759');background-size:cover;border:1px solid white;"></button></div>
-                          <div class="col-xs-6" style="padding-left:5px;"><button  ng-click="select('bernie')" class="col-xs-6 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'bernie'}" style="float:left; width:200px;height:200px;background-image:url('https://media.salon.com/2015/05/bernie_sanders8.jpg');background-size:cover;border:1px solid white;"></button></div>
-                        </div> -->
-                        <!-- <div class="row" style="width:50%;">
-                          <div class="col-xs-3" style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-3 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="width:50px;height:50px;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>
-                          <div class="col-xs-3" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-3 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="width:50px;height:50px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>
-                          <div class="col-xs-3" style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-3 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="width:50px;height:50x;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>
-                          <div class="col-xs-3" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-3 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="width:50px;height:50px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>
-                        </div> -->
-                    </div>
-                    <!-- Custom options (others, friend/foe, or charity) -->
-                    <a href="#" class="choose-different-recipient-type"><u>Choose a different Anti-Charity</u></a>
-                    <!--<br/>-->
+                        <!-- Custom options (others, friend/foe, or charity) -->
+                        <a href="#" class="choose-different-recipient-type"><u>Choose a different Anti-Charity</u></a>
+                        <!--<br/>-->
 
-                    <br/>
-                    <br/>
-                    <!-- <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p> -->
-                    <p class="lead" style="margin-bottom:2px;">
-                        <button ng-click="open()" class="btn btn-lg btn-success">Commit to goal</button>
-                    </p>
-                    <a href="#" style="font-size:70%;margin-top:0px;"><u>How does this work?</u></a>
+                        <br/>
+                        <br/>
+                        <!-- <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p> -->
+                        <p class="lead" style="margin-bottom:2px;">
+                            <button ng-click="open()" class="btn btn-lg btn-success">Commit to goal</button>
+                        </p>
+                        <a href="#" style="font-size:70%;margin-top:0px;"><u>How does this work?</u></a>
                     </form>
                 </div>
             </div>
         </div>
-        <!--<div class="maskParent" >-->
-        <!--&lt;!&ndash;<div class="paralaxMask"></div>&ndash;&gt;-->
-        <!--<div id="fullScreenSliderWrapper">-->
-        <!--&lt;!&ndash;<div>&ndash;&gt;-->
-        <!--<div class="inner-container">-->
-        <!--<div class="goal-container">-->
-        <!--<h1 style="font-size:125%;color:white;">I pledge to achieve the following goal:</h1>-->
-        <!--<form>-->
-        <!--<div class="form-group">-->
-        <!--<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Lose 20 pounds">-->
-        <!--</div>-->
-        <!--<h3>By this date:</h1>-->
-        <!--<div class="form-group" >-->
-        <!--<p class="input-group" style="width:200px;margin-left:auto;margin-right:auto;">-->
-        <!--<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />-->
-        <!--<span class="input-group-btn">-->
-        <!--<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>-->
-        <!--</span>-->
-        <!--</p>-->
-        <!--</form>-->
-        <!--<div>-->
-        <!--<h3>And if I don't, I will pay:</h3>-->
-        <!--<div class="form-group" style="width:200px;margin-left:auto;margin-right:auto;">-->
-        <!--<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>-->
-        <!--<div class="input-group">-->
-        <!--<div class="input-group-addon">$</div>-->
-        <!--<input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount" style="text-align:right;">-->
-        <!--<div class="input-group-addon">.00</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<h3>to the following <u>Anti-Charity</u>:</h3>&lt;!&ndash;TODO: When clicking on AntiCharity, allow to select Charity, Friend, or Foe) &ndash;&gt;-->
-        <!--<div class="row">-->
-        <!--<div class="col-xs-6 " style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-6 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="float:right; width:200px;height:200px;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>-->
-        <!--<div class="col-xs-6" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-6 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="float:left; width:200px;height:200px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; <div class="row" style="padding-top:10px;">-->
-        <!--<div class="col-xs-6 " style="padding-right:5px;"><button ng-click="select('cruz')" class="col-xs-6 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'cruz'}" style="float:right; width:200px;height:200px;background-image:url('https://cdn.theatlantic.com/assets/media/img/mt/2015/07/AP_473596995531/lead_960.jpg?1437760759');background-size:cover;border:1px solid white;"></button></div>-->
-        <!--<div class="col-xs-6" style="padding-left:5px;"><button  ng-click="select('bernie')" class="col-xs-6 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'bernie'}" style="float:left; width:200px;height:200px;background-image:url('https://media.salon.com/2015/05/bernie_sanders8.jpg');background-size:cover;border:1px solid white;"></button></div>-->
-        <!--</div> &ndash;&gt;-->
-        <!--&lt;!&ndash; <div class="row" style="width:50%;">-->
-        <!--<div class="col-xs-3" style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-3 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="width:50px;height:50px;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>-->
-        <!--<div class="col-xs-3" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-3 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="width:50px;height:50px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>-->
-        <!--<div class="col-xs-3" style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-3 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="width:50px;height:50x;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>-->
-        <!--<div class="col-xs-3" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-3 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="width:50px;height:50px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>-->
-        <!--</div> &ndash;&gt;-->
-        <!--</div>-->
-        <!--&lt;!&ndash; Custom options (others, friend/foe, or charity) &ndash;&gt;-->
-        <!--<a href="#"><u>Choose a different Anti-Charity</u></a>-->
-        <!--<br />-->
-
-        <!--<br />-->
-        <!--<br />-->
-        <!--&lt;!&ndash; <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p> &ndash;&gt;-->
-        <!--<p class="lead" style="margin-bottom:2px;">-->
-        <!--<a href="#" class="btn btn-lg btn-success">Commit to goal</a>-->
-        <!--</p>-->
-        <!--<a href="#" style="font-size:70%;margin-top:0px;"><u>How does this work?</u></a>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<div id="logoBig">&ndash;&gt;-->
-        <!--&lt;!&ndash;<img class="img-responsive" src="images/main-logo-big.png" alt="Little Neko Ashley Bootstrap 3 Parallax One Page" />&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<div class="flexslider" id="flexHome">&ndash;&gt;-->
-        <!--&lt;!&ndash;<ul class="slides">&ndash;&gt;-->
-        <!--&lt;!&ndash;<li>&ndash;&gt;-->
-        <!--&lt;!&ndash;<h1>Hello, this is Ashley</h1>							&ndash;&gt;-->
-        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-        <!--&lt;!&ndash;<li>&ndash;&gt;-->
-        <!--&lt;!&ndash;<h1>Modern and Creative</h1>&ndash;&gt;-->
-        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-        <!--&lt;!&ndash;<li>&ndash;&gt;-->
-        <!--&lt;!&ndash;<h1>Mobile first design</h1>&ndash;&gt;-->
-        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div> &ndash;&gt;-->
-        <!--&lt;!&ndash;<a href="#about" class="homeBtn btn scrollLink"><i class="icon-down"></i>learn more</a>&ndash;&gt;-->
-        <!--</div>-->
-        <!--</div>-->
     </section>
     <!-- about us -->
     <section class="slice noPaddingBottom" id="about">
-    <div class="container">
-    <div class="row">
-    <div class="col-xs-12">
-    <h1>About us</h1>
-    <h2 class="subTitle">Ashley is a versatile one page website template</h2>
-    </div>
-    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>How does this work?</h1>
+                    <h2 class="subTitle">Ashley is a versatile one page website template</h2>
+                </div>
+            </div>
 
-    <div class="row">
-    <div class="col-sm-4"> <img src="images/theme-pics/services.png" alt="services" class="img-responsive"> </div>
-    <div class="col-sm-4">
-    <h2>Build your website, now!</h2>
+            <div class="row">
+                <div class="col-sm-4"><img src="images/theme-pics/services.png" alt="services" class="img-responsive">
+                </div>
+                <div class="col-sm-4">
+                    <h2>Build your website, now!</h2>
 
-    <p>This did not seem to encourage the witness at all: he kept shifting  from one foot to the other, looking uneasily at the Queen, and in  his confusion he bit a large piece out of his teacup instead of the  bread-and-butter.
-    </p>
+                    <p>This did not seem to encourage the witness at all: he kept shifting from one foot to the other,
+                        looking uneasily at the Queen, and in his confusion he bit a large piece out of his teacup
+                        instead of the bread-and-butter.
+                    </p>
 
-    <p>Just at this moment Alice felt a very curious sensation, which puzzled  her a good deal until she made out what it was: she was beginning to  grow larger again, and she thought at first she would get up and leave  the court; but on second thoughts she decided to remain where she was as  long as there was room for her.'Have you guessed the riddle yet?' the Hatter said, turning to Alice again.
-    </p>
-    </div>
+                    <p>Just at this moment Alice felt a very curious sensation, which puzzled her a good deal until she
+                        made out what it was: she was beginning to grow larger again, and she thought at first she would
+                        get up and leave the court; but on second thoughts she decided to remain where she was as long
+                        as there was room for her.'Have you guessed the riddle yet?' the Hatter said, turning to Alice
+                        again.
+                    </p>
+                </div>
 
-    <div class="col-sm-4">
-    <h2>Ashley website template</h2>
-    <p> The Hatter's remark seemed to have no sort of meaning in it, and yet it was certainly English. 'I don't quite understand you,' she said, as politely as she could. 'The Dormouse is asleep again,' said the Hatter, and he poured a little hot tea upon its nose. </p>
-    <h3>I don't quite understand you</h3>
-    <p> The Dormouse shook its head impatiently, and said, without opening its eyes, 'Of course, of course; just what I was going to remark myself.'  </p>
-    </div>
-    </div>
-    <div class="row">
-    <div class="col-xs-12 mt30">
-    <div class="alert alert-info alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Heads up!</strong> This template comes with all the features you need. <a href="features.html" class="alert-link portfolioSheet">check them here</a>
-    </div>
-    </div>
-    </div>
-
-    <!--<div class="row mt30">-->
-    <!--<div class="col-md-8">-->
-    <!--<div class="jumbotron">-->
-    <!--<div class="container">-->
-    <!--<h2> You will fall in love with Ashley!</h2>-->
-    <!--<p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>-->
-    <!--<p><a class="btn btn-lg" href="https://wrapbootstrap.com/theme/ashley-one-page-parallax-bootstrap-3-WB0R11207">Buy me now!</a></p>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-md-4 hidden-xs">-->
-    <!--<img src="images/theme-pics/home-girl.png" alt="Ashley, Bootstrap website template" class="img-responsive">-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-
+                <div class="col-sm-4">
+                    <h2>Ashley website template</h2>
+                    <p> The Hatter's remark seemed to have no sort of meaning in it, and yet it was certainly English.
+                        'I don't quite understand you,' she said, as politely as she could. 'The Dormouse is asleep
+                        again,' said the Hatter, and he poured a little hot tea upon its nose. </p>
+                    <h3>I don't quite understand you</h3>
+                    <p> The Dormouse shook its head impatiently, and said, without opening its eyes, 'Of course, of
+                        course; just what I was going to remark myself.' </p>
+                </div>
+            </div>
+        </div>
     </section>
-    <!--&lt;!&ndash; about us &ndash;&gt;-->
-
-    <!--&lt;!&ndash; services &ndash;&gt;-->
-    <!--<section class="slice color4" id="services">-->
-    <!--<div class="container">-->
-    <!--<div class="row">-->
-    <!--<div class="col-xs-12">-->
-    <!--<h1>Our services</h1>-->
-    <!--<h2 class="subTitle">We are doing a couple of things you might be interested in</h2>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-    <!--<div class="col-md-3 col-sm-6 ">-->
-    <!--<article class="boxFeature-2">-->
-    <!--<i class="icon-star iconBig"></i>-->
-    <!--<h2>Clean design</h2>-->
-    <!--<p>Elegant layouts that help you organize your content in the best way</p>-->
-    <!--</article>-->
-    <!--</div>-->
-
-    <!--<div class="col-md-3 col-sm-6">-->
-    <!--<article class="boxFeature-2">-->
-    <!--<i class="icon-code-outline iconBig"></i>-->
-    <!--<h2>HTML5 & CSS3</h2>-->
-    <!--<p>Built with modern technologies like HTML5 and CSS3, SEO optimised</p>-->
-    <!--</article>-->
-    <!--</div>-->
-
-    <!--<div class="col-md-3 col-sm-6">-->
-    <!--<article class="boxFeature-2">-->
-    <!--<i class="icon-th-large-outline iconBig"></i>-->
-    <!--<h2>Responsive design</h2>-->
-    <!--<p>Compatible with various desktop, tablet, and mobile devices.</p>-->
-    <!--</article>-->
-    <!--</div>-->
-
-    <!--<div class="col-md-3 col-sm-6">-->
-    <!--<article class="boxFeature-2">-->
-    <!--<i class="icon-pencil iconBig"></i>-->
-    <!--<h2>Easy Customization</h2>-->
-    <!--<p>Clear code and documentation, base on Bootstrap 3</p>-->
-    <!--</article>-->
-    <!--</div>-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--</section>-->
-    <!--&lt;!&ndash; services &ndash;&gt;-->
-
-
-    <!--<div id="paralaxSlice5" data-stellar-background-ratio="0.5">-->
-    <!--<div class="maskParent">-->
-    <!--<div class="paralaxMask"></div>-->
-    <!--<div class="paralaxText container">-->
-    <!--<blockquote class="bigTitle">Mobile first, truly responsive,<br /> based on bootstrap 3</blockquote>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<section class="slice" id="works">-->
-    <!--<div class="container clearfix">-->
-    <!--<div class="row">-->
-    <!--<div class="col-sm-12">-->
-    <!--<h1>Our Work</h1>-->
-    <!--<h2 class="subTitle">Latest cool projects we've been working on</h2>-->
-    <!--</div>-->
-    <!--<nav id="filter" class="col-md-12 text-center">-->
-    <!--<ul>-->
-    <!--<li><a href="" class="current btn btn-sm" data-filter="*">All</a></li>-->
-    <!--<li><a href=""  class="btn btn-sm" data-filter=".graphics" >Graphics</a></li>-->
-    <!--<li><a href=""  class="btn btn-sm" data-filter=".women">Women</a></li>-->
-    <!--<li ><a href="" class="btn btn-sm" data-filter=".cats">Cats</a></li>-->
-    <!--</ul>-->
-    <!--</nav>-->
-    <!--</div>-->
-    <!--<div class="portfolio-items  isotopeWrapper clearfix imgHover row" id="3">-->
-    <!--<article class="col-sm-4 isotopeItem women">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign6.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-image.html" title="link" class="sizer portfolioSheet">-->
-    <!--<i class="icon-picture iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="images/portfolio/zoom6.jpg" class="image-link" title="Full width image">-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>zoom</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Full width image</h3>-->
-    <!--<p>-->
-    <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat. <br>-->
-    <!--<a href="portfolio-project-fullwidth-image.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-
-    <!--<article class="col-sm-4 isotopeItem cats">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign1.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-video.html" title="link" class="portfolioSheet sizer">-->
-    <!--<i class="icon-videocam iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="http://www.youtube.com/watch?v=aqrtF7L86NQ" class="image-iframe" title="Video Popup" >-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>video</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Video YouTube</h3>-->
-    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat. <br>-->
-    <!--<a href="portfolio-project-fullwidth-video.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-
-    <!--<article class="col-sm-4 isotopeItem graphics">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign7.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-video.html" title="link" class="sizer portfolioSheet">-->
-    <!--<i class="icon-videocam iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="http://vimeo.com/ondemand/5335/75660130" class="image-iframe" title="Video Popup" >-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>video</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Video Vimeo</h3>-->
-    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat. <br>-->
-    <!--<a href="portfolio-project-fullwidth-video.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-
-    <!--<article class="col-sm-4 isotopeItem cats">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign3.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-carousel.html" title="link" class="sizer portfolioSheet">-->
-    <!--<i class="icon-camera iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="images/portfolio/carousel-1.jpg" class="image-link" title="Zoom" data-gallery="images/portfolio/carousel-2.jpg,images/portfolio/carousel-3.jpg">-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>gallery</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Gallery</h3>-->
-    <!--<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat. <br>-->
-    <!--<a href="portfolio-project-fullwidth-carousel.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-    <!--<article class="col-sm-4 isotopeItem cats">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign2.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-carousel.html" title="link" class="sizer portfolioSheet"> <i class="icon-picture iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="images/portfolio/zoom2.jpg" class="image-link" title="Gallery Popup" >-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>zoom</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Lorem ipsum dolor sit amet</h3>-->
-    <!--<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat. <br>-->
-    <!--<a href="portfolio-project-fullwidth-carousel.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-
-    <!--<article class="col-sm-4 isotopeItem women">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign4.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-image.html" title="link" class="sizer portfolioSheet">-->
-    <!--<i class="icon-picture iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="images/portfolio/zoom4.jpg" class="image-link" title="Zoom">-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>zoom</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Lorem ipsum dolor sit amet</h3>-->
-    <!--<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat. <br>-->
-    <!--<a href="portfolio-project-fullwidth-image.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-
-
-    <!--<article class="col-sm-4 isotopeItem graphics">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign8.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-image.html" title="link" class="sizer portfolioSheet">-->
-    <!--<i class="icon-picture iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="images/portfolio/zoom8.jpg" class="image-link" title="Zoom" >-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>zoom</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Lorem ipsum dolor sit amet</h3>-->
-    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat.<br>-->
-    <!--<a href="portfolio-project-fullwidth-image.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-
-    <!--<article class="col-sm-4 isotopeItem women">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign5.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-image.html" title="link" class="sizer portfolioSheet">-->
-    <!--<i class="icon-picture iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="images/portfolio/zoom5.jpg" class="image-link" title="Zoom" >-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>zoom</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Lorem ipsum dolor sit amet</h3>-->
-    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat.<br>-->
-    <!--<a href="portfolio-project-fullwidth-image.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-
-    <!--<article class="col-sm-4 isotopeItem graphics">-->
-    <!--<section class="imgWrapper">-->
-    <!--<img alt="" src="images/portfolio/vign9.jpg" class="img-responsive">-->
-    <!--</section>-->
-    <!--<div class="mediaHover">-->
-    <!--<div class="mask"></div>-->
-    <!--<div class="iconLinks">-->
-    <!--<a href="portfolio-project-fullwidth-carousel.html" title="link" class="sizer portfolioSheet">-->
-    <!--<i class="icon-camera iconRounded iconBig"></i>-->
-    <!--<span>link</span>-->
-    <!--</a>-->
-    <!--<a href="images/portfolio/zoom9.jpg" class="image-link" title="Zoom">-->
-    <!--<i class="icon-search iconRounded iconBig"></i>-->
-    <!--<span>zoom</span>-->
-    <!--</a> </div>-->
-    <!--</div>-->
-    <!--<section class="boxContent">-->
-    <!--<h3>Lorem ipsum dolor sit amet</h3>-->
-    <!--<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate nunc ut tellus sollicitudin placerat. <br>-->
-    <!--<a href="portfolio-project-fullwidth-carousel.html" class="moreLink portfolioSheet">&rarr; read more</a>-->
-    <!--</p>-->
-    <!--</section>-->
-    <!--</article>-->
-
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--</section>-->
-
-    <!--<div id="paralaxSlice1" data-stellar-background-ratio="0.5">-->
-    <!--<div class="maskParent">-->
-    <!--<div class="paralaxMask"></div>-->
-    <!--<div class="paralaxText">-->
-    <!--<i class="icon-star iconBig"></i>-->
-    <!--<blockquote class="mt15">Write drunk; edit sober.<br/><small>ERNEST HEMINGWAY </small></blockquote>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="slice" id="team">-->
-    <!--<div class="container">-->
-    <!--<div class="row">-->
-    <!--<div class="col-xs-12">-->
-    <!--<h1>Meet our team</h1>-->
-    <!--<h2 class="subTitle">We are beautiful and smart</h2>-->
-    <!--</div>-->
-
-    <!--<div class="col-sm-4">-->
-    <!--<article>-->
-    <!--<div><img src="images/team/pic2.jpg" alt="" class="img-responsive"></div>-->
-    <!--<div class="boxContent text-center color4">-->
-    <!--<h3>Johanna Newsom</h3>-->
-    <!--<p>Salesman</p>-->
-    <!--</div>-->
-    <!--<div class="boxContent text-center color1"> <a href="mailto:your.email@little-neko.com">j.newsom@ashley.com</a>-->
-    <!--<ul class="socialNetwork mt15">-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Facebook"><i class="icon-facebook-1 iconRounded"></i></a></li>-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Twitter"><i class="icon-twitter-bird iconRounded"></i></a></li>-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Google+"><i class="icon-gplus-1 iconRounded"></i></a></li>-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Linkedin"><i class="icon-linkedin-1 iconRounded"></i></a></li>-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Tumblr"><i class="icon-tumblr-1 iconRounded"></i></a></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</article>-->
-    <!--</div>-->
-    <!--<div class="col-sm-4">-->
-    <!--<article>-->
-    <!--<div><img src="images/team/pic3.jpg" alt="" class="img-responsive"></div>-->
-    <!--<div class="boxContent text-center color4">-->
-    <!--<h3>Alexander Doe</h3>-->
-    <!--<p>Graphic designer</p>-->
-    <!--</div>-->
-    <!--<div class="boxContent text-center color1"> <a href="mailto:your.email@little-neko.com">a.doe@ashley.com</a>-->
-    <!--<ul class="socialNetwork mt15">-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Facebook"><i class="icon-facebook-1 iconRounded"></i></a></li>-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Twitter"><i class="icon-twitter-bird iconRounded"></i></a></li>-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Google+"><i class="icon-gplus-1 iconRounded"></i></a></li>-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on Linkedin"><i class="icon-linkedin-1 iconRounded"></i></a></li>-->
-    <!--<li><a href="#" class="tips" title="" data-original-title="follow me on YouTube"><i class="icon-youtube iconRounded"></i></a></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</article>-->
-    <!--</div>-->
-    <!--<div class="col-sm-4">-->
-    <!--<article>-->
-    <!--<div><img src="images/team/pic4.jpg" alt="" class="img-responsive"></div>-->
-    <!--<div class="boxContent text-center color4">-->
-    <!--<h3>Pamela Anderson</h3>-->
-    <!--<p>Programmer</p>-->
-    <!--</div>-->
-    <!--<div class="boxContent text-center color1"> <a href="mailto:your.email@little-neko.com">p.anderson66@ashley.com</a>-->
-    <!--<ul class="socialNetwork mt15">-->
-    <!--<li> <a href="#" class="tips" title="" data-original-title="follow me on Facebook"><i class="icon-facebook-1 iconRounded"></i></a> </li>-->
-    <!--<li> <a href="#" class="tips" title="" data-original-title="follow me on Twitter"><i class="icon-twitter-bird iconRounded"></i></a> </li>-->
-    <!--<li> <a href="#" class="tips" title="" data-original-title="follow me on Google+"><i class="icon-gplus-1 iconRounded"></i></a> </li>-->
-    <!--<li> <a href="#" class="tips" title="" data-original-title="follow me on Linkedin"><i class="icon-linkedin-1 iconRounded"></i> </a> </li>-->
-    <!--<li> <a href="#" class="tips" title="" data-original-title="follow me on Flickr"><i class="icon-flickr iconRounded"></i> </a> </li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</article>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</section>-->
-
-    <!--<div id="paralaxSlice4" data-stellar-background-ratio="0.5" >-->
-    <!--<div class="maskParent">-->
-    <!--<div class="paralaxMask"></div>-->
-
-    <!--<div class="paralaxText">-->
-    <!--<blockquote>Keep in touch with us</blockquote>-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<section class="slice"  id="contactSlice" >-->
-    <!--<div class="container">-->
-    <!--<div class="row">-->
-
-    <!--<div class="col-sm-12">-->
-    <!--<h1 class="noSubtitle">Contact us</h1>-->
-    <!--</div>-->
-
-    <!--<div class="col-sm-4">-->
-    <!--<h4>Address:</h4>-->
-    <!--<address>-->
-    <!--Himalaya Company<br/>-->
-    <!--77 Mass. Ave., E14/E15<br/>-->
-    <!--Cambridge, MA 02139-4307 USA <br/>-->
-    <!--</address>-->
-    <!--<h4>Phone:</h4>-->
-    <!--<address>-->
-    <!--615.987.1234<br/>-->
-    <!--</address>-->
-    <!--</div>-->
-    <!--<form method="post" action="js-plugin/neko-contact-ajax-plugin/php/form-handler.php" id="contactfrm" role="form">-->
-
-    <!--<div class="col-sm-4">-->
-    <!--<div class="form-group">-->
-    <!--<label for="name">Name</label>-->
-    <!--<input type="text" class="form-control" name="name" id="name" placeholder="Enter name"  title="Please enter your name (at least 2 characters)"/>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-    <!--<label for="email">Email</label>-->
-    <!--<input type="email" class="form-control" name="email" id="email" placeholder="Enter email" title="Please enter a valid email address"/>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-    <!--<label for="phone">Phone</label>-->
-    <!--<input name="phone" class="form-control required digits" type="tel" id="phone" size="30" value="" placeholder="Enter phone number" title="Please enter a valid phone number (at least 10 characters)">-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-sm-4">-->
-    <!--<div class="form-group">-->
-    <!--<label for="comments">Comments</label>-->
-    <!--<textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your message…" title="Please enter your message (at least 10 characters)"></textarea>-->
-    <!--</div>-->
-    <!--<fieldset class="clearfix securityCheck">-->
-    <!--<legend>Security</legend>-->
-    <!--<div class="form-group">-->
-    <!--<img src="js-plugin/neko-contact-ajax-plugin/php/image.php" alt="Image verification" id="verifyImg"/>-->
-    <!--<input class="required form-control" id="verify" name="verify" type="text" >-->
-    <!--</div>-->
-    <!--</fieldset>-->
-    <!--</div>-->
-    <!--<div class="col-md-8 col-md-offset-4">-->
-    <!--<div class="result"></div>-->
-    <!--<button name="submit" type="submit" class="btn btn-lg" id="submit"> Submit</button>-->
-    <!--</div>-->
-    <!--</form>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</section>-->
-
-    <!--&lt;!&ndash; call to action &ndash;&gt;-->
-    <!--<div class="container mb15">-->
-    <!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-    <!--<div class="color1 ctaBox ">-->
-    <!--<div class="row">-->
-    <!--<div class="col-md-8">-->
-    <!--<h1>-->
-    <!--<strong>Ashley Bootstrap Website Template</strong> is perfect for simple and clean presentation of your business.-->
-    <!--</h1>-->
-
-    <!--</div>-->
-    <!--<div class="col-md-4">-->
-    <!--<a class="btn btn-lg" title="" href="https://wrapbootstrap.com/theme/ashley-one-page-parallax-bootstrap-3-WB0R11207" target="blank">-->
-    <!--<i class="icon-flash"></i> purchase now-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash; call to action &ndash;&gt;-->
-
     <!--&lt;!&ndash; content &ndash;&gt;-->
     <!--&lt;!&ndash; footer &ndash;&gt;-->
     <!--<footer class="color4">-->
@@ -878,15 +313,16 @@
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">Your Email address</label>
-                <input type="email" ng-model = "email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                <input type="email" ng-model="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
             </div>
             <!--<div class="form-group">-->
-                <!--<label for="exampleInputPassword1">Password</label>-->
-                <!--<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" aria-describedby="helpBlock">-->
-                <!--<span id="helpBlock" class="help-block" style="font-size:70%;">*Account is required in order to confirm goal</span>-->
+            <!--<label for="exampleInputPassword1">Password</label>-->
+            <!--<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" aria-describedby="helpBlock">-->
+            <!--<span id="helpBlock" class="help-block" style="font-size:70%;">*Account is required in order to confirm goal</span>-->
             <!--</div>-->
             <center><h3>Add a judge?</h3>
-                <h6 style="font-size:70%;">A judge will help hold you accountable and confirm that you've completed your goal. Adding a Judge is optional.</h6></center>
+                <h6 style="font-size:70%;">A judge will help hold you accountable and confirm that you've completed your
+                    goal. Adding a Judge is optional.</h6></center>
             <div class="form-group">
                 <label for="exampleInputEmail1">Judge's Email address</label>
                 <input type="email" ng-model="judge" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -896,23 +332,23 @@
 
         <!--<form>-->
         <!--&lt;!&ndash;I'm committing to pay {{amount | currency}} to Donald Trump if my goal "{{goal}}" has not been completed by {{dt}}.&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
-                <!--&lt;!&ndash;<label class="sr-only" for="inputHelpBlock">Input with help text</label>&ndash;&gt;-->
-                <!--&lt;!&ndash;<input type="text" id="inputHelpBlock" class="form-control" aria-describedby="helpBlock">&ndash;&gt;-->
-                <!--&lt;!&ndash;...&ndash;&gt;-->
-                <!--&lt;!&ndash;<span id="helpBlock" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;<label class="sr-only" for="inputHelpBlock">Input with help text</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="text" id="inputHelpBlock" class="form-control" aria-describedby="helpBlock">&ndash;&gt;-->
+        <!--&lt;!&ndash;...&ndash;&gt;-->
+        <!--&lt;!&ndash;<span id="helpBlock" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>&ndash;&gt;-->
 
-                <!--&lt;!&ndash;My e-mail address:&ndash;&gt;-->
+        <!--&lt;!&ndash;My e-mail address:&ndash;&gt;-->
 
-                <!--&lt;!&ndash;Judge&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;Judge&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
         <!--</form>-->
 
 
         <!--<ul>-->
-            <!--<li ng-repeat="item in items">-->
-                <!--<a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>-->
-            <!--</li>-->
+        <!--<li ng-repeat="item in items">-->
+        <!--<a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>-->
+        <!--</li>-->
         <!--</ul>-->
         <!--Selected: <b>{{ selected.item }}</b>-->
     </div>
