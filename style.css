@@ -2,6 +2,11 @@
   background-image: url('https://flight.do/img/iStock/set_your_stakes/HiRes.jpg');
 }
 
+.goal-container::-webkit-scrollbar {
+  display: none;
+}
+
+
 .goal-text {
   color: white;
   font-size:145%;
