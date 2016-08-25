@@ -1,7 +1,12 @@
-angular.module('trump', ['ui.bootstrap'])
+angular.module('trump', ['ui.bootstrap', 'backand'])
 
-.controller('TrumpCtrl', function ($scope, $uibModal, $http) {
+.config(function (BackandProvider) {
+  BackandProvider.setAppName('trumpyourgoals');
+  BackandProvider.setSignUpToken('fb2d1730-c924-4973-9f30-9905fb6adb1a');
+  BackandProvider.setAnonymousToken('a8ee36f3-99f7-4b35-96ca-4c6625e9fb42');
+})
 
+.controller('TrumpCtrl', function ($scope, $uibModal, $http, Backand) {
 
   $scope.recipient = "";
   $scope.background = 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg';
@@ -27,22 +32,100 @@ angular.module('trump', ['ui.bootstrap'])
       stripeCheckoutImage: 'https://pbs.twimg.com/profile_images/588068152854052865/FFNOz-xQ.jpg'
     }
   };
-  const server = 'http://localhost:3000/api/createContract';
+
+  var createStripeCustomer = function(tokenID) {
+    return $http ({
+      method: 'POST',
+      url: Backand.getApiUrl() + '/1/objects/action/goals/?name=createStripeCustomer',
+      data: {
+        email: $scope.email,
+        stripe_token_id: tokenID
+      }
+    });
+
+    // return $http ({
+    //   method: 'POST',
+    //   url: Backand.getApiUrl() + '/1/objects/action/goals/1?name=createStripeCustomer',
+    //   data: {
+    //     // email: 'asdf@fdsza.com',
+    //     // stripe_token_id: 'tok_18l8bM273fOFEuQM2Kok0BX0'
+    //     stripe_token_id: token,
+    //     email: $scope.email
+    //   }
+    // });
+    // $http({
+    //   method: 'GET',
+    //   url: Backand.getApiUrl() + '/1/objects/action/goals/1?name=createStripeCustomer',
+    //   params:{
+    //     parameters:{
+    //       stripe_token_id: token,
+    //       email: $scope.email
+    //     }
+    //   }
+    // }).then(function () {
+    //   console.log('success creating customer');
+    // }).catch(function (err) {
+    //     if (err.type && /^Stripe/.test(err.type)) {
+    //       console.error('Stripe error: ', err);
+    //     }
+    //     else {
+    //       console.error('Other error occurred, possibly with your API', err.message);
+    //     }
+    //   });
+  };
 
   var handler = StripeCheckout.configure({
     key: 'pk_test_xi8hyOSW2WZaKX1LZ2mgdMAH', //pk_live_R2hcONSAEfIcn8vC18Xiv7gE
     locale: 'auto',
     token: function(token) {
+      //debugger;
       console.log(token);
-      $http.post(server, {
-        stripeToken: token
-      });
-      //Send to token and details REST backend server
-        //Backend server will validate token with stripe
-        //Backend server will create goal and stake info in firebase
-        //Backend server creates stripe customer and attaches it to firebase customer data
-        //Return success, or error
-      //Display success confirmation
+      $scope.tokenID = token.id;
+      createStripeCustomer(token.id)
+        .then(function(stripeCustomerResponse) {
+          var customerID = stripeCustomerResponse.data.data.id;
+          console.log("Customer created from Stripe customer successfully!!");
+          console.log(stripeCustomerResponse);
+          return $http({
+            method: 'POST',
+            url: Backand.getApiUrl() + '/1/objects/goals',
+            data: {
+              "title": $scope.goal,
+              "due_date": "2016-08-22T01:12:45.828Z",
+              "amount": $scope.amount,
+              "recipient": $scope.recipient,
+              "stake_type": "anticharity",
+              "user_email": $scope.email,
+              "judge_email": $scope.judgeEmail,
+              "user_name": $scope.name,
+              "judge_name": $scope.judgeName,
+              "stripe_token_id": $scope.tokenID,
+              "stripe_token_details": JSON.stringify(token),
+              "stripe_customer_details": JSON.stringify(stripeCustomerResponse),
+              "stripe_customer_id": customerID,
+              "status": "created",
+              "created_at": new Date().toISOString().slice(0, 19).replace('T', ' ')
+            }
+          }).then(function successCallback(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+            console.log("success, resp:", response);
+            $scope.openSuccess();
+          }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            console.error("ERROR, resp:", response);
+          });
+      })
+        .catch(function (err) {
+          if (err.type && /^Stripe/.test(err.type)) {
+            console.error('Stripe error: ', err);
+          }
+          else {
+            console.error('Other error occurred, possibly with your API', err.message);
+            console.error(err);
+          }
+        });
     }
   });
 
@@ -74,11 +157,38 @@ angular.module('trump', ['ui.bootstrap'])
     handler.close();
   });
 
+  $scope.openSuccess = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: 'success.html',
+      scope: $scope,
+      controller: function ($scope, $uibModalInstance) {
 
+        $scope.ok = function () {
+          $uibModalInstance.close(true);
+        };
 
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+      },
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
 
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      //$log.info('Modal dismissed at: ' + new Date());
+    });
+  };
 
   $scope.open = function (size) {
+    var scope = $scope;
     var modalInstance = $uibModal.open({
       animation: true,
       templateUrl: 'myModalContent.html',
@@ -91,7 +201,13 @@ angular.module('trump', ['ui.bootstrap'])
         //};
 
         $scope.ok = function () {
+          scope.email = $scope.email;
+          scope.name = $scope.name;
+          scope.judgeEmail = $scope.judgeEmail;
+          scope.judgeName = $scope.judgeName;
+
           $scope.getCardDetails($scope.email, $scope.recipients[$scope.recipient]);
+
           $uibModalInstance.close(true);
         };
 
