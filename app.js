@@ -187,19 +187,42 @@ angular.module('trump', ['ui.bootstrap', 'backand'])
     });
   };
 
+  function validateGoalForm() {
+    var error = "";
+    // Goal
+    if (!$scope.goal || $scope.goal.length <= 1) {
+      error+="Goal length must be at least 2 characters\n";
+    }
+    // Date
+    if (!$scope.date) {
+
+    }
+    // Amount
+    if (isNaN($scope.amount) || $scope.amount < 5) {
+      error+="Please enter 5 or more dollars before proceeding\n";
+    }
+    // Anti-Charity
+    if ($scope.recipient !== 'trump' && $scope.recipient !== 'hillary') {
+      error+="Please select your anti-charity before proceeding\n";
+    }
+
+    return (error === "") ? true : error;
+  }
+
   $scope.open = function (size) {
+    //Error checking
+    var validation = validateGoalForm();
+    if (validation !== true) {
+      alert(validation);
+      return false;
+    }
+
     var scope = $scope;
     var modalInstance = $uibModal.open({
       animation: true,
       templateUrl: 'myModalContent.html',
       scope: $scope,
       controller: function ($scope, $uibModalInstance) {
-
-        //$scope.items = items;
-        //$scope.selected = {
-        //  item: $scope.items[0]
-        //};
-
         $scope.ok = function () {
           scope.email = $scope.email;
           scope.name = $scope.name;

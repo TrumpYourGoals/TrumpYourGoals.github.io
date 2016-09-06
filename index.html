@@ -98,9 +98,10 @@
             <div class="goal-container">
                 <div class="goal-inside-container">
                     <div class="goal-text">I pledge to achieve the following goal:</div>
-                    <form>
-                        <div class="form-group form-group-lg">
-                            <input type="text" ng-model="goal" class="form-control"
+                    <form name="goalForm">
+                        <div class="form-group form-group-lg" ng-class="{ 'has-error' : goalForm.goal.$invalid && !goalForm.goal.$pristine }">
+                            <input type="text" ng-model="goal" class="form-control" name="goal"
+                                   ng-required ng-minlength="2"
                                    placeholder="Lose 20 pounds">
                         </div>
                         <div class="goal-text">By this date:</div>
@@ -119,11 +120,14 @@
                             <div class="goal-text">And if I don't, I will pay:</div>
                             <div class="form-group" style="width:200px;margin-left:auto;margin-right:auto;">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                                <div class="input-group">
+                                <div class="input-group" >
                                     <div class="input-group-addon dollar-sign">$</div>
                                     <input type="number" class="form-control" id="exampleInputAmount"
                                            ng-model="amount"
+                                           name="amount"
                                            placeholder="Amount"
+                                           ng-min="5"
+                                           required
                                            style="text-align:right;">
                                     <div class="input-group-addon dollar-cents">.00</div>
                                 </div>
@@ -142,28 +146,18 @@
                                             style="float:left; background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');"></button>
                                 </div>
                             </div>
-                            <!-- <div class="row" style="padding-top:10px;">
-                              <div class="col-xs-6 " style="padding-right:5px;"><button ng-click="select('cruz')" class="col-xs-6 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'cruz'}" style="float:right; width:200px;height:200px;background-image:url('https://cdn.theatlantic.com/assets/media/img/mt/2015/07/AP_473596995531/lead_960.jpg?1437760759');background-size:cover;border:1px solid white;"></button></div>
-                              <div class="col-xs-6" style="padding-left:5px;"><button  ng-click="select('bernie')" class="col-xs-6 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'bernie'}" style="float:left; width:200px;height:200px;background-image:url('https://media.salon.com/2015/05/bernie_sanders8.jpg');background-size:cover;border:1px solid white;"></button></div>
-                            </div> -->
-                            <!-- <div class="row" style="width:50%;">
-                              <div class="col-xs-3" style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-3 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="width:50px;height:50px;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>
-                              <div class="col-xs-3" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-3 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="width:50px;height:50px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>
-                              <div class="col-xs-3" style="padding-right:5px;"><button ng-click="select('trump')" class="col-xs-3 btn btn-lg" ng-class="{'btn-selected-republican' : recipient === 'trump'}" style="width:50px;height:50x;background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg');background-size:cover;border:1px solid white;"></button></div>
-                              <div class="col-xs-3" style="padding-left:5px;"><button  ng-click="select('hillary')" class="col-xs-3 btn btn-lg"  ng-class="{'btn-selected-democrat' : recipient === 'hillary'}" style="width:50px;height:50px;background-image:url('http://politichicks.com/wp-content/uploads/2015/09/Hillary-Clinton.jpg');background-size:cover;border:1px solid white;"></button></div>
-                            </div> -->
                         </div>
                         <!-- Custom options (others, friend/foe, or charity) -->
-                        <a href="#" class="choose-different-recipient-type"><u>Choose a different Anti-Charity</u></a>
+                        <!--<a href="#" class="choose-different-recipient-type"><u>Choose a different Anti-Charity</u></a>-->
                         <!--<br/>-->
 
                         <br/>
                         <br/>
                         <!-- <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p> -->
                         <p class="lead" style="margin-bottom:2px;">
-                            <button ng-click="open()" class="btn btn-lg btn-success">Commit to goal</button>
+                            <button ng-click="open()" class="btn btn-lg btn-success" ng-disabled="goalForm.$invalid || recipient === ''">Commit to goal</button>
                         </p>
-                        <a href="#" style="font-size:70%;margin-top:0px;"><u>How does this work?</u></a>
+                        <a href="#about" style="font-size:70%;margin-top:0px;"><u>How does this work?</u></a>
                     </form>
                 </div>
             </div>
@@ -307,32 +301,27 @@
         <h3 class="modal-title">Create commitment contract</h3>
     </div>
     <div class="modal-body">
-        <form>
-            <div class="form-group">
+        <form name="commitmentForm">
+            <div class="form-group" ng-class="{ 'has-error' : commitmentForm.name.$invalid && !commitmentForm.name.$pristine }">
                 <label for="name-input">Your Name</label>
-                <input type="text" ng-model="name" id="name-input" class="form-control" placeholder="Name">
+                <input type="text" name="name" ng-model="name" id="name-input" class="form-control" placeholder="Name" required ng-minlength="2">
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error': commitmentForm.email.$invalid && commitmentForm.email.$dirty }">
                 <label for="email-input">Your Email address</label>
-                <input type="email" ng-model="email" class="form-control" id="email-input" placeholder="Email">
+                <input type="email" name="email" ng-model="email" class="form-control" id="email-input" placeholder="Email" required ng-minlength="2">
             </div>
-            <!--<div class="form-group">-->
-            <!--<label for="exampleInputPassword1">Password</label>-->
-            <!--<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" aria-describedby="helpBlock">-->
-            <!--<span id="helpBlock" class="help-block" style="font-size:70%;">*Account is required in order to confirm goal</span>-->
-            <!--</div>-->
             <center>
                 <h3>Add an accountability partner?</h3>
                 <h6 style="font-size:70%;">A partner will help hold you accountable and confirm that you've completed your
                     goal. It is completely optional.</h6>
             </center>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error': commitmentForm.judgeName.$invalid && commitmentForm.judgeName.$dirty }">
                 <label for="judge-name-input">Partner's Name</label>
-                <input type="text" ng-model="judgeName" class="form-control" id="judge-name-input" placeholder="Name">
+                <input type="text" name="judgeName" ng-model="judgeName" class="form-control" id="judge-name-input" placeholder="Name" ng-minlength="2">
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error': commitmentForm.judgeEmail.$invalid && commitmentForm.judgeEmail.$dirty }">
                 <label for="judge-email-input">Judge's Email address</label>
-                <input type="email" ng-model="judgeEmail" class="form-control" id="judge-email-input" placeholder="Email">
+                <input type="email" name="judgeEmail" ng-model="judgeEmail" class="form-control" id="judge-email-input" placeholder="Email" ng-minlength="2">
             </div>
         </form>
 
@@ -360,8 +349,8 @@
         <!--Selected: <b>{{ selected.item }}</b>-->
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="commitmentForm.$invalid">OK</button>
+        <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>
 
@@ -379,7 +368,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>
 
