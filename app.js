@@ -161,7 +161,7 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
 
   $scope.openSuccess = function (size) {
     var scope = $scope;
-    debugger;
+    
     var modalInstance = $uibModal.open({
       animation: true,
       templateUrl: 'success.html',
