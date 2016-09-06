@@ -254,6 +254,7 @@
                     <span>Copyright © 2016 <a href="http://flight.do" target="blank">DatsuSoftware</a></span>
                         |
                     <span>Questions? <a href = "mailto:datsusoftware@gmail.com">Contact us</a></span>
+                     | <a href = "#" ng-click="openSuccess()">open success</a>
                 </div>
 
             </div>
@@ -291,6 +292,7 @@
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script src="//cdn.backand.net/backand/dist/1.8.2/backand.min.js"></script>
+<script type="text/javascript" src="js/angular-socialshare.min.js"></script>
 <!-- Custom  -->
 <script type="text/javascript" src="js/custom.js"></script>
 <script src="app.js"></script>
@@ -349,6 +351,7 @@
         <!--Selected: <b>{{ selected.item }}</b>-->
     </div>
     <div class="modal-footer">
+        <span class="agree-tos">By clicking OK, you agree to the <a href="">Terms and Conditions</a></span>
         <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="commitmentForm.$invalid">OK</button>
         <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
@@ -359,12 +362,51 @@
         <h3 class="modal-title">Successfully created commitment contract</h3>
     </div>
     <div class="modal-body">
-        Good job, you've successfully created a commitment contract.
+        Great job, you've successfully created a commitment contract!
         <br />
         <br />
-        You'll be receiving an e-mail shortly.
-        <br />
-        Social sharing coming here soon.
+        You'll be receiving an e-mail shortly to confirm your commitment. Simply reply when you've completed your goal, or send an e-mail to <a href="mailto:donald@trumpyourgoals.com">donald@trumpyourgoals.com</a> letting us know you've finished. <br />That's it! You're on your way to success.
+        <br /><br />
+        <h3>Why not share your commitment with your friends?</h3>
+        <ul class="share-buttons">
+            <li>
+                <a href="#"
+                   socialshare
+                   socialshare-provider="facebook"
+                   socialshare-text="{{shareString()}}"
+                   socialshare-url="{{shareURL}}"
+                   title="Share on Facebook">
+                    <img alt="Share on Facebook" src="images/sharing-icons/Facebook.svg">
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                   socialshare
+                   socialshare-provider="twitter"
+                   socialshare-text="Recpient:{{shareString()}}"
+                   socialshare-hashtags="TrumpYourGoals"
+                   socialshare-url="{{shareURL}}"
+                   title="Tweet"><img alt="Tweet" src="images/sharing-icons/Twitter.svg"></a></li>
+            <li>
+                <a href="#"
+                   socialshare
+                   socialshare-provider="google"
+                   socialshare-text="Recpient:{{shareString()}}"
+                   socialshare-hashtags="TrumpYourGoals"
+                   socialshare-url="{{shareURL}}"
+                   title="Share on Google+"><img alt="Share on Google+" src="images/sharing-icons/Google+.svg">
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                   socialshare
+                   socialshare-provider="email"
+                   socialshare-title="{{shareString()}}"
+                   socialshare-body="Recpient:{{shareString()}}"
+                   socialshare-hashtags="TrumpYourGoals"
+                   socialshare-url="{{shareURL}}"
+                   title="Send email"><img alt="Send email" src="images/sharing-icons/Email.svg"></a></li>
+        </ul>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>

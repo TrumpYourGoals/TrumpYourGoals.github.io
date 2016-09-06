@@ -1,4 +1,4 @@
-angular.module('trump', ['ui.bootstrap', 'backand'])
+angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
 
 .config(function (BackandProvider) {
   BackandProvider.setAppName('trumpyourgoals');
@@ -7,6 +7,8 @@ angular.module('trump', ['ui.bootstrap', 'backand'])
 })
 
 .controller('TrumpCtrl', function ($scope, $uibModal, $http, Backand) {
+
+  $scope.shareURL = "http://www.trumpyourgoals.com";
 
   $scope.recipient = "";
   $scope.background = 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg';
@@ -158,11 +160,21 @@ angular.module('trump', ['ui.bootstrap', 'backand'])
   });
 
   $scope.openSuccess = function (size) {
+    var scope = $scope;
+    debugger;
     var modalInstance = $uibModal.open({
       animation: true,
       templateUrl: 'success.html',
       scope: $scope,
       controller: function ($scope, $uibModalInstance) {
+        $scope.amount = scope.amount;
+        $scope.due_date = scope.due_date;
+        $scope.recipient = scope.recipient;
+        $scope.shareURL = "http://www.trumpyourgoals.com";
+        $scope.shareString = function() {
+          var recipient = $scope.recipient === 'trump' ? 'Donald Trump' : 'Hillary Clinton';
+          return "I've agreed to pay $" + $scope.amount + " to " + recipient + " if I don't complete my goal by" + $scope.due_date;
+        };
 
         $scope.ok = function () {
           $uibModalInstance.close(true);
