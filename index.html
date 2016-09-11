@@ -132,7 +132,7 @@
                                     <div class="input-group-addon dollar-cents">.00</div>
                                 </div>
                             </div>
-                            <div class="goal-text">to the following <u>Anti-Charity</u>:</div>
+                            <span class="goal-text">to the following </span><u class="goal-text" uib-popover="An Anti-Charity is an organization you do NOT want to give money to. Choose the candidate or political party you would never want in the White House, and watch your motivation to succeed skyrocket." popover-trigger="mouseenter" popover-title="What is an Anti-Charity?">Anti-Charity</u><span class="goal-text">:</span></span><br />
                             <!--TODO: When clicking on AntiCharity, allow to select Charity, Friend, or Foe) -->
                             <div class="row">
                                 <div class="col-xs-6 " style="padding-right:5px;">
@@ -351,7 +351,7 @@
         <!--Selected: <b>{{ selected.item }}</b>-->
     </div>
     <div class="modal-footer">
-        <span class="agree-tos">By clicking OK, you agree to the <a href="">Terms and Conditions</a></span>
+        <span class="agree-tos">By clicking OK, you agree to the <a href="terms-and-conditions.html" target="_blank">Terms and Conditions</a></span>
         <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="commitmentForm.$invalid">OK</button>
         <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
