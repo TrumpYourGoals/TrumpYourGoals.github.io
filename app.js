@@ -76,62 +76,64 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
     //   });
   };
 
-  var handler = StripeCheckout.configure({
-    key: 'pk_test_xi8hyOSW2WZaKX1LZ2mgdMAH', //pk_live_R2hcONSAEfIcn8vC18Xiv7gE
-    locale: 'auto',
-    token: function(token) {
-      //debugger;
-      console.log(token);
-      $scope.tokenID = token.id;
-      createStripeCustomer(token.id)
-        .then(function(stripeCustomerResponse) {
-          var customerID = stripeCustomerResponse.data.data.id;
-          console.log("Customer created from Stripe customer successfully!!");
-          console.log(stripeCustomerResponse);
-          return $http({
-            method: 'POST',
-            url: Backand.getApiUrl() + '/1/objects/goals',
-            data: {
-              "title": $scope.goal,
-              "due_date": "2016-08-22T01:12:45.828Z",
-              "amount": $scope.amount,
-              "recipient": $scope.recipient,
-              "stake_type": "anticharity",
-              "user_email": $scope.email,
-              "judge_email": $scope.judgeEmail,
-              "user_name": $scope.name,
-              "judge_name": $scope.judgeName,
-              "stripe_token_id": $scope.tokenID,
-              "stripe_token_details": JSON.stringify(token),
-              "stripe_customer_details": JSON.stringify(stripeCustomerResponse),
-              "stripe_customer_id": customerID,
-              "status": "created",
-              "created_at": new Date().toISOString().slice(0, 19).replace('T', ' ')
-            }
-          }).then(function successCallback(response) {
-            // this callback will be called asynchronously
-            // when the response is available
-            console.log("success, resp:", response);
-            $scope.openSuccess();
-          }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            console.error("ERROR, resp:", response);
-          });
-      })
-        .catch(function (err) {
-          if (err.type && /^Stripe/.test(err.type)) {
-            console.error('Stripe error: ', err);
-          }
-          else {
-            console.error('Other error occurred, possibly with your API', err.message);
-            console.error(err);
-          }
-        });
-    }
-  });
+  var handler = null;
 
   $scope.getCardDetails = function(email, recipient) {
+    handler = handler || StripeCheckout.configure({
+      key: 'pk_test_xi8hyOSW2WZaKX1LZ2mgdMAH', //pk_live_R2hcONSAEfIcn8vC18Xiv7gE
+      locale: 'auto',
+      token: function(token) {
+        //debugger;
+        console.log(token);
+        $scope.tokenID = token.id;
+        createStripeCustomer(token.id)
+          .then(function(stripeCustomerResponse) {
+            var customerID = stripeCustomerResponse.data.data.id;
+            console.log("Customer created from Stripe customer successfully!!");
+            console.log(stripeCustomerResponse);
+            return $http({
+              method: 'POST',
+              url: Backand.getApiUrl() + '/1/objects/goals',
+              data: {
+                "title": $scope.goal,
+                "due_date": "2016-08-22T01:12:45.828Z",
+                "amount": $scope.amount,
+                "recipient": $scope.recipient,
+                "stake_type": "anticharity",
+                "user_email": $scope.email,
+                "judge_email": $scope.judgeEmail,
+                "user_name": $scope.name,
+                "judge_name": $scope.judgeName,
+                "stripe_token_id": $scope.tokenID,
+                "stripe_token_details": JSON.stringify(token),
+                "stripe_customer_details": JSON.stringify(stripeCustomerResponse),
+                "stripe_customer_id": customerID,
+                "status": "created",
+                "created_at": new Date().toISOString().slice(0, 19).replace('T', ' ')
+              }
+            }).then(function successCallback(response) {
+              // this callback will be called asynchronously
+              // when the response is available
+              console.log("success, resp:", response);
+              $scope.openSuccess();
+            }, function errorCallback(response) {
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+              console.error("ERROR, resp:", response);
+            });
+          })
+          .catch(function (err) {
+            if (err.type && /^Stripe/.test(err.type)) {
+              console.error('Stripe error: ', err);
+            }
+            else {
+              console.error('Other error occurred, possibly with your API', err.message);
+              console.error(err);
+            }
+          });
+      }
+    });
+
     handler.open({
       name: recipient.name,
       image: recipient.stripeCheckoutImage,
