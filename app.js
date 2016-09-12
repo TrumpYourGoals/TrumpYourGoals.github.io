@@ -79,87 +79,79 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
   var handler = null;
 
   $scope.getCardDetails = function(email, recipient) {
-    handler = handler || StripeCheckout.configure({
-      key: 'pk_test_xi8hyOSW2WZaKX1LZ2mgdMAH', //pk_live_R2hcONSAEfIcn8vC18Xiv7gE
-      locale: 'auto',
-      token: function(token) {
-        //debugger;
-        console.log(token);
-        $scope.tokenID = token.id;
-        createStripeCustomer(token.id)
-          .then(function(stripeCustomerResponse) {
-            var customerID = stripeCustomerResponse.data.data.id;
-            console.log("Customer created from Stripe customer successfully!!");
-            console.log(stripeCustomerResponse);
-            return $http({
-              method: 'POST',
-              url: Backand.getApiUrl() + '/1/objects/goals',
-              data: {
-                "title": $scope.goal,
-                "due_date": "2016-08-22T01:12:45.828Z",
-                "amount": $scope.amount,
-                "recipient": $scope.recipient,
-                "stake_type": "anticharity",
-                "user_email": $scope.email,
-                "judge_email": $scope.judgeEmail,
-                "user_name": $scope.name,
-                "judge_name": $scope.judgeName,
-                "stripe_token_id": $scope.tokenID,
-                "stripe_token_details": JSON.stringify(token),
-                "stripe_customer_details": JSON.stringify(stripeCustomerResponse),
-                "stripe_customer_id": customerID,
-                "status": "created",
-                "created_at": new Date().toISOString().slice(0, 19).replace('T', ' ')
-              }
-            }).then(function successCallback(response) {
-              // this callback will be called asynchronously
-              // when the response is available
-              console.log("success, resp:", response);
-              $scope.openSuccess();
-            }, function errorCallback(response) {
-              // called asynchronously if an error occurs
-              // or server returns response with an error status.
-              console.error("ERROR, resp:", response);
-            });
-          })
-          .catch(function (err) {
-            if (err.type && /^Stripe/.test(err.type)) {
-              console.error('Stripe error: ', err);
-            }
-            else {
-              console.error('Other error occurred, possibly with your API', err.message);
-              console.error(err);
-            }
-          });
-      }
-    });
+    if (!handler) {
+      handler = handler || StripeCheckout.configure({
+          key: 'pk_test_xi8hyOSW2WZaKX1LZ2mgdMAH', //pk_live_R2hcONSAEfIcn8vC18Xiv7gE
+          locale: 'auto',
+          token: function(token) {
+            //debugger;
+            console.log(token);
+            $scope.tokenID = token.id;
+            createStripeCustomer(token.id)
+              .then(function(stripeCustomerResponse) {
+                var customerID = stripeCustomerResponse.data.data.id;
+                console.log("Customer created from Stripe customer successfully!!");
+                console.log(stripeCustomerResponse);
+                return $http({
+                  method: 'POST',
+                  url: Backand.getApiUrl() + '/1/objects/goals',
+                  data: {
+                    "title": $scope.goal,
+                    "due_date": "2016-08-22T01:12:45.828Z",
+                    "amount": $scope.amount,
+                    "recipient": $scope.recipient,
+                    "stake_type": "anticharity",
+                    "user_email": $scope.email,
+                    "judge_email": $scope.judgeEmail,
+                    "user_name": $scope.name,
+                    "judge_name": $scope.judgeName,
+                    "stripe_token_id": $scope.tokenID,
+                    "stripe_token_details": JSON.stringify(token),
+                    "stripe_customer_details": JSON.stringify(stripeCustomerResponse),
+                    "stripe_customer_id": customerID,
+                    "status": "created",
+                    "created_at": new Date().toISOString().slice(0, 19).replace('T', ' ')
+                  }
+                }).then(function successCallback(response) {
+                  // this callback will be called asynchronously
+                  // when the response is available
+                  console.log("success, resp:", response);
+                  $scope.openSuccess();
+                }, function errorCallback(response) {
+                  // called asynchronously if an error occurs
+                  // or server returns response with an error status.
+                  console.error("ERROR, resp:", response);
+                });
+              })
+              .catch(function (err) {
+                if (err.type && /^Stripe/.test(err.type)) {
+                  console.error('Stripe error: ', err);
+                }
+                else {
+                  console.error('Other error occurred, possibly with your API', err.message);
+                  console.error(err);
+                }
+              });
+          }
+        });
+
+      // Close Checkout on page navigation
+      $(window).on('popstate', function() {
+        handler.close();
+      });
+    }
+
 
     handler.open({
       name: recipient.name,
       image: recipient.stripeCheckoutImage,
       //description: 'No charge until due date',
       description: ('(Only pay if goal is not completed)'),
-      amount: 2000,
+      amount: $scope.amount * 100,
       email: email,
-      panelLabel: "Create {{amount}} commitment contract"
+      panelLabel: "Commit to "
     });
   };
-
-
-  //$('#customButton').on('click', function(e) {
-  //  // Open Checkout with further options
-  //  handler.open({
-  //    name: 'Stripe.com',
-  //    description: '2 widgets',
-  //    amount: 2000
-  //  });
-  //  e.preventDefault();
-  //});
-
-  // Close Checkout on page navigation
-  $(window).on('popstate', function() {
-    handler.close();
-  });
 
   $scope.openSuccess = function (size) {
     var scope = $scope;
@@ -172,10 +164,24 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
         $scope.amount = scope.amount;
         $scope.due_date = scope.due_date;
         $scope.recipient = scope.recipient;
+        $scope.goal = scope.goal;
         $scope.shareURL = "http://www.trumpyourgoals.com";
-        $scope.shareString = function() {
-          var recipient = $scope.recipient === 'trump' ? 'Donald Trump' : 'Hillary Clinton';
-          return "I've agreed to pay $" + $scope.amount + " to " + recipient + " if I don't complete my goal by" + $scope.due_date;
+        var recipient = $scope.recipient === 'trump' ? 'Donald Trump' : 'Hillary Clinton';
+
+        $scope.emailTitle = function() {
+          return 'I\'m going to pay $' + $scope.amount + ' to ' + recipient + ' if I don\'t complete my goal!';
+        };
+
+        $scope.shareString = function(platform) {
+          switch (platform) {
+            case 'twitter':
+              return 'I have just committed to ' + $scope.goal + ', and will send $' + $scope.amount + ' to ' + recipient + ' if I fail.';
+            default:
+              return 'I have just committed to achieving the goal of ' + $scope.goal + ', and have set the personal stake of sending $' + $scope.amount + ' directly to ' + recipient + ' if I fail to accomplish this goal.' +
+                      ' You can Trump YOUR goals, too, at http://trumpyourgoals.com';
+          }
+
+          //return "I've agreed to pay $" + $scope.amount + " to " + recipient + " if I don't complete my goal by" + $scope.due_date;
         };
 
         $scope.ok = function () {
