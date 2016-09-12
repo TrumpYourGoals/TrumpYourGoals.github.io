@@ -268,16 +268,20 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
   };
 
   $scope.select = function(recipient) {
-      $scope.recipient = recipient;
-      if($scope.recipient === 'hillary') {
-        $('#homeFullScreen').css('background-size', 'cover');
-        $('#homeFullScreen').css('background-image', 'url("https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2015/4/15/1429115266876/Hillary-Clinton-009.jpg")');
-      }
-      else if(recipient === 'trump') {
-        $('#homeFullScreen').css('background-size', 'cover');
-        $('#homeFullScreen').css('background-image', 'url("https://static6.businessinsider.com/image/55918b77ecad04a3465a0a63/nbc-fires-donald-trump-after-he-calls-mexicans-rapists-and-drug-runners.jpg")');
-      }
+    $scope.recipient = recipient;
+    var width = $(window).width(), height = $(window).height();
 
+    var trumpImageURL = (width <= 2136) ? 'https://res.cloudinary.com/flight/image/upload/c_fit,w_0.5/v1473640624/donald-trump-bg_o4aa5j.jpg' : 'https://res.cloudinary.com/flight/image/upload/v1473640624/donald-trump-bg_o4aa5j.jpg';
+    var hillaryImageURL = 'https://res.cloudinary.com/flight/image/upload/q_auto:good/v1473640744/hillary-clinton-bg_qjtute.jpg';
+
+    if($scope.recipient === 'hillary') {
+      $('#homeFullScreen').css('background-size', 'cover');
+      $('#homeFullScreen').css('background-image', 'url(' + hillaryImageURL + ')');
+    }
+    else if(recipient === 'trump') {
+      $('#homeFullScreen').css('background-size', 'cover');
+      $('#homeFullScreen').css('background-image', 'url(' + trumpImageURL + ')');
+    }
   };
 
   $scope.today = function() {
