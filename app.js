@@ -2,7 +2,6 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
 
 .config(function (BackandProvider) {
   BackandProvider.setAppName('trumpyourgoals');
-  BackandProvider.setSignUpToken('fb2d1730-c924-4973-9f30-9905fb6adb1a');
   BackandProvider.setAnonymousToken('a8ee36f3-99f7-4b35-96ca-4c6625e9fb42');
 })
 
@@ -120,16 +119,19 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
                 }, function errorCallback(response) {
                   // called asynchronously if an error occurs
                   // or server returns response with an error status.
+                  alert("Error saving goal, please try again later.\n\nNo Charge has been made.");
                   console.error("ERROR, resp:", response);
                 });
               })
               .catch(function (err) {
                 if (err.type && /^Stripe/.test(err.type)) {
                   console.error('Stripe error: ', err);
+                  alert("Error saving goal, please try again later.\n\nNo Charge has been made.");
                 }
                 else {
                   console.error('Other error occurred, possibly with your API', err.message);
                   console.error(err);
+                  alert("Error saving goal, please try again later.\n\nNo Charge has been made.");
                 }
               });
           }
@@ -170,6 +172,10 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
 
         $scope.emailTitle = function() {
           return 'I\'m going to pay $' + $scope.amount + ' to ' + recipient + ' if I don\'t complete my goal!';
+        };
+
+        $scope.emailAddress = function() {
+          return ($scope.recipient === 'trump') ? 'Donald@TrumpYourGoals.com' : 'Hillary@TrumpYourGoals.com';
         };
 
         $scope.shareString = function(platform) {
@@ -300,26 +306,26 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
   };
 
   $scope.inlineOptions = {
-    customClass: getDayClass,
+    // customClass: getDayClass,
     minDate: new Date(),
     showWeeks: true
   };
 
   $scope.dateOptions = {
-    dateDisabled: disabled,
+    // dateDisabled: disabled,
     formatYear: 'yy',
-    maxDate: new Date(2020, 5, 22),
+    // maxDate: new Date(2020, 5, 22),
     minDate: new Date(),
-    startingDay: 1
+    // startingDay: 1
+    showWeeks: false
   };
 
   // Disable weekend selection
   function disabled(data) {
-    //TODO: Disable old dates
-
-    //var date = data.date,
-    //  mode = data.mode;
-    //return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    // return (data.date.withoutTime() <= new Date().withoutTime());
+    // if (data.date.getTime() > new Date().getTime()) {
+    //   alert("The first date is after the second date!");
+    // }
   }
 
   $scope.toggleMin = function() {
@@ -327,7 +333,8 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
     $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
   };
 
-  $scope.toggleMin();
+  // $scope.toggleMin();
+  // $scope.toggleMin();
 
   $scope.open1 = function() {
     $scope.popup1.opened = true;
@@ -353,36 +360,142 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
     opened: false
   };
 
-  var tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  var afterTomorrow = new Date();
-  afterTomorrow.setDate(tomorrow.getDate() + 1);
-  $scope.events = [
-    {
-      date: tomorrow,
-      status: 'full'
-    },
-    {
-      date: afterTomorrow,
-      status: 'partially'
-    }
-  ];
+  // var tomorrow = new Date();
+  // tomorrow.setDate(tomorrow.getDate() + 1);
+  // var afterTomorrow = new Date();
+  // afterTomorrow.setDate(tomorrow.getDate() + 1);
+  // $scope.events = [
+  //   {
+  //     date: tomorrow,
+  //     status: 'full'
+  //   },
+  //   {
+  //     date: afterTomorrow,
+  //     status: 'partially'
+  //   }
+  // ];
+  //
+  // function getDayClass(data) {
+  //   var date = data.date,
+  //     mode = data.mode;
+  //   if (mode === 'day') {
+  //     var dayToCheck = new Date(date).setHours(0,0,0,0);
+  //
+  //     for (var i = 0; i < $scope.events.length; i++) {
+  //       var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+  //
+  //       if (dayToCheck === currentDay) {
+  //         return $scope.events[i].status;
+  //       }
+  //     }
+  //   }
+  //
+  //   return '';
+  // }
 
-  function getDayClass(data) {
-    var date = data.date,
-      mode = data.mode;
-    if (mode === 'day') {
-      var dayToCheck = new Date(date).setHours(0,0,0,0);
 
-      for (var i = 0; i < $scope.events.length; i++) {
-        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
 
-        if (dayToCheck === currentDay) {
-          return $scope.events[i].status;
-        }
-      }
-    }
 
-    return '';
-  }
+  // $scope.today = function() {
+  //   $scope.dt = new Date();
+  // };
+  // $scope.today();
+  //
+  // $scope.clear = function() {
+  //   $scope.dt = null;
+  // };
+  //
+  // $scope.inlineOptions = {
+  //   customClass: getDayClass,
+  //   minDate: new Date(),
+  //   showWeeks: true
+  // };
+  //
+  // $scope.dateOptions = {
+  //   dateDisabled: disabled,
+  //   formatYear: 'yy',
+  //   maxDate: new Date(2020, 5, 22),
+  //   minDate: new Date(),
+  //   startingDay: 1
+  // };
+  //
+  // // Disable weekend selection
+  // function disabled(data) {
+  //   var date = data.date,
+  //     mode = data.mode;
+  //   return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+  // }
+  //
+  // $scope.toggleMin = function() {
+  //   $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+  //   $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+  // };
+  //
+  // $scope.toggleMin();
+  //
+  // $scope.open1 = function() {
+  //   $scope.popup1.opened = true;
+  // };
+  //
+  // $scope.open2 = function() {
+  //   $scope.popup2.opened = true;
+  // };
+  //
+  // $scope.setDate = function(year, month, day) {
+  //   $scope.dt = new Date(year, month, day);
+  // };
+  //
+  // $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  // $scope.format = $scope.formats[0];
+  // $scope.altInputFormats = ['M!/d!/yyyy'];
+  //
+  // $scope.popup1 = {
+  //   opened: false
+  // };
+  //
+  // $scope.popup2 = {
+  //   opened: false
+  // };
+  //
+  // var tomorrow = new Date();
+  // tomorrow.setDate(tomorrow.getDate() + 1);
+  // var afterTomorrow = new Date();
+  // afterTomorrow.setDate(tomorrow.getDate() + 1);
+  // $scope.events = [
+  //   {
+  //     date: tomorrow,
+  //     status: 'full'
+  //   },
+  //   {
+  //     date: afterTomorrow,
+  //     status: 'partially'
+  //   }
+  // ];
+  //
+  // function getDayClass(data) {
+  //   var date = data.date,
+  //     mode = data.mode;
+  //   if (mode === 'day') {
+  //     var dayToCheck = new Date(date).setHours(0,0,0,0);
+  //
+  //     for (var i = 0; i < $scope.events.length; i++) {
+  //       var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+  //
+  //       if (dayToCheck === currentDay) {
+  //         return $scope.events[i].status;
+  //       }
+  //     }
+  //   }
+  //
+  //   return '';
+  // }
+
+
+
 });
+
+Date.prototype.withoutTime = function () {
+  var d = new Date(this);
+  d.setHours(0, 0, 0, 0, 0);
+  return d
+};

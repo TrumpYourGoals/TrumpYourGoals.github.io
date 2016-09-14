@@ -110,9 +110,9 @@
                                    placeholder="Lose 20 pounds">
                         </div>
                         <div class="goal-text">By this date:</div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{ 'has-error' : goalForm.dt.$invalid && !goalForm.dt.$pristine }">
                             <p class="input-group" style="width:200px;margin-left:auto;margin-right:auto;">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" name="dt" ng-model="dt"
                                        is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true"
                                        close-text="Close" alt-input-formats="altInputFormats"/>
                                 <span class="input-group-btn">
@@ -382,7 +382,7 @@
         Great job, you've successfully created a commitment contract!
         <br />
         <br />
-        You'll be receiving an e-mail shortly to confirm your commitment. Simply reply when you've completed your goal, or send an e-mail to <a href="mailto:donald@trumpyourgoals.com">donald@trumpyourgoals.com</a> letting us know you've finished. <br />That's it! You're on your way to success.
+        You'll be receiving an e-mail shortly to confirm your commitment. Simply reply when you've completed your goal, or send an e-mail to <a href="mailto:{{emailAddress()}}">{{emailAddress()}}</a> letting us know you've finished. <br />That's it! You're on your way to success.
         <br /><br />
         <center>
             <h3>Why not share your commitment with your friends?</h3>
