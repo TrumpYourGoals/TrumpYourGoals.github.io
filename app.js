@@ -66,7 +66,7 @@ angular.module('trump', ['ui.bootstrap', 'backand', '720kb.socialshare'])
                   url: Backand.getApiUrl() + '/1/objects/goals',
                   data: {
                     "title": $scope.goal,
-                    "due_date": "2016-08-22T01:12:45.828Z",
+                    "due_date": new Date($scope.dt).toISOString().slice(0, 19).replace('T', ' '),
                     "amount": $scope.amount,
                     "recipient": $scope.recipient,
                     "stake_type": "anticharity",
